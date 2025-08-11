@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Survey - SurveyBoard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- 🚀 Apply dark mode early -->
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.classList.add('dark-mode');
+    }
+  </script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- 🔥 Embedded Dark Mode Styles -->
+  <style>
+    body {
+      background-color: #f8f9fa;
+      color: #212529;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .card {
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .toggle-btn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 999;
+    }
+
+    .dark-mode body {
+      background-color: #121212;
+      color: #f1f1f1;
+    }
+
+    .dark-mode .card {
+      background-color: #1e1e1e;
+      color: #f1f1f1;
+      border: none;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+    }
+
+    .dark-mode input,
+    .dark-mode textarea {
+      background-color: #2a2a2a;
+      color: #f1f1f1;
+      border: 1px solid #444;
+    }
+
+    .dark-mode input::placeholder {
+      color: #aaa;
+    }
+
+    .dark-mode .btn-outline-secondary {
+      color: #eee;
+      border-color: #888;
+    }
+
+    .dark-mode .btn-outline-success {
+      color: #5cb85c;
+      border-color: #5cb85c;
+    }
+  </style>
+
+  <script src="js/validate.js"></script>
+</head>
+<body>
+
+<button class="btn btn-sm btn-outline-secondary toggle-btn" onclick="toggleMode()">🌓 Toggle Mode</button>
+
+<div class="container mt-4">
+  <div class="text-center mb-4">
+    <h3 class="fw-bold">🛠️ Create New Survey</h3>
+    <p class="fw-semibold" style="color: #007bff;">Your trusted platform for easy surveys</p>
+  </div>
+
+  <!-- FORM -->
+  <form action="php/create_survey.php" method="POST" onsubmit="return validateForm();">
+    <div class="mb-3">
+      <label class="form-label">Survey Title</label>
+      <input type="text" name="title" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Description (optional)</label>
+      <textarea name="description" class="form-control" rows="2"></textarea>
+    </div>
+
+    <div id="questionContainer">
+      <div class="question card p-3 mb-3">
+        <label>Question 1</label>
+        <input type="text" name="questions[]" class="form-control mb-2" required>
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <input type="text" name="options0[]" class="form-control" placeholder="Option 1" required>
+          </div>
+          <div class="col-md-6 mb-2">
+            <input type="text" name="options0[]" class="form-control" placeholder="Option 2" required>
+          </div>
+          <div class="col-md-6 mb-2">
+            <input type="text" name="options0[]" class="form-control" placeholder="Option 3" required>
+          </div>
+          <div class="col-md-6 mb-2">
+            <input type="text" name="options0[]" class="form-control" placeholder="Option 4" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="button" onclick="addQuestion()" class="btn btn-secondary">+ Add Question</button>
+      <button type="submit" class="btn btn-success">Create Survey</button>
+    </div>
+  </form>
+</div>
+
+<!-- JS for dynamic form and toggle -->
+<script>
+  let questionCount = 1;
+
+  function addQuestion() {
+    const container = document.getElementById('questionContainer');
+    const qIndex = questionCount++;
+    const div = document.createElement('div');
+    div.classList.add('question', 'card', 'p-3', 'mb-3');
+
+    div.innerHTML = `
+      <label>Question ${qIndex + 1}</label>
+      <input type="text" name="questions[]" class="form-control mb-2" required>
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <input type="text" name="options${qIndex}[]" class="form-control" placeholder="Option 1" required>
+        </div>
+        <div class="col-md-6 mb-2">
+          <input type="text" name="options${qIndex}[]" class="form-control" placeholder="Option 2" required>
+        </div>
+        <div class="col-md-6 mb-2">
+          <input type="text" name="options${qIndex}[]" class="form-control" placeholder="Option 3" required>
+        </div>
+        <div class="col-md-6 mb-2">
+          <input type="text" name="options${qIndex}[]" class="form-control" placeholder="Option 4" required>
+        </div>
+      </div>
+    `;
+    container.appendChild(div);
+  }
+
+  function toggleMode() {
+    const root = document.documentElement;
+    root.classList.toggle('dark-mode');
+    localStorage.setItem('theme', root.classList.contains('dark-mode') ? 'dark' : 'light');
+  }
+</script>
+
+</body>
+</html>
