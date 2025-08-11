@@ -1,3 +1,4 @@
+
 # 📊 SurveyBoard – Online Survey Management System
 
 SurveyBoard is a modern **online survey management platform** inspired by the simplicity and flexibility of Google Forms.  
@@ -11,8 +12,9 @@ It offers a simple yet powerful way to create and share surveys with a **unique 
 ## 🚀 Current Features (Implemented)
 
 ### 🔐 User Authentication & Access
-- **User Registration** – Users can sign up with essential details to start creating surveys.
-- **User Login** – Secure authentication ensures that only registered users can access the dashboard.
+- **User Registration** – Sign up with essential details to start creating surveys.
+- **Secure Password Storage** – Passwords are **encrypted before being stored** in the database.
+- **User Login** – Secure authentication ensures that only registered users can access their dashboard.
 - **Session Management** – Prevents unauthorized access and protects user accounts.
 
 ### 📝 Survey Creation & Management
@@ -20,55 +22,71 @@ It offers a simple yet powerful way to create and share surveys with a **unique 
 - **Unique Survey Code Generation** – Each created survey automatically receives a unique code for public access.
 - **Survey Management Dashboard** – View your created surveys, manage them, and access collected responses.
 
+### 📋 Dashboard Page Features
+- **Recently Created Surveys** – Quickly access your latest surveys after logging in.
+- **Response Counter** – Shows the total responses received for each survey in real time.
+- **Copy Survey Code Button** – Instantly copy a generated unique code for easy sharing.
+- **One-Click Delete Survey** – Remove any of your created surveys directly from the dashboard.
+- **Logout Functionality** – End your session securely with a single click.
+
 ### 🗳 Public Survey Participation
 - **Access via Unique Code** – Public users can open a survey without logging in by entering the provided code.
 - **Simple and Fast Interface** – Minimal steps for participants to submit their answers.
 
 ### 📊 Response Collection & Analysis
-- **Real-Time Response Capture** – As soon as a participant submits a response, it’s saved in the database.
-- **Graphical Results View (Bar Graph)** – Clicking the **"View Results"** button shows collected survey results in **bar graph format** for easy analysis.
-- **Data Accuracy** – MySQL constraints ensure that only valid and complete responses are stored.
+- **Real-Time Response Capture** – Responses are saved to the database instantly after submission.
+- **Graphical Results View (Bar Graph)** – View survey results in a clear, visual bar chart format.
+- **Data Accuracy** – MySQL constraints ensure only valid and complete responses are stored.
 
 ### 🎨 UI & Design
-- **Google Forms-Inspired Theme** – A clean and familiar interface.
+- **Google Forms-Inspired Theme** – Clean, familiar, and easy to navigate.
 - **Responsive Design** – Works seamlessly on desktops, tablets, and smartphones.
-- **Dark Mode Toggle** – Users can switch between light and dark themes for better accessibility and comfort.
+- **Dark Mode Toggle** – Switch between light and dark themes for comfort and accessibility.
+
+---
+
+## 🛡 Security Features
+- **Password Encryption** – User passwords are stored securely using hashing techniques.
+- **Session-Based Access Control** – Prevents unauthorized users from accessing private survey pages.
+- **Owner-Only Survey Management** – Only the survey creator can view, edit, or delete their surveys.
+- **Database Validation** – Ensures only authorized and valid data is processed.
 
 ---
 
 ## 🛠 Tech Stack
-
-- **Frontend:** HTML5, CSS3 (Bootstrap 5), JavaScript
-- **Backend:** PHP 8+
-- **Database:** MySQL (via phpMyAdmin in XAMPP)
-- **Server Environment:** Apache (XAMPP for local development)
-- **Version Control:** Git & GitHub
+- **Frontend:** HTML5, CSS3 (Bootstrap 5), JavaScript  
+- **Backend:** PHP 8+  
+- **Database:** MySQL (via phpMyAdmin in XAMPP)  
+- **Server Environment:** Apache (XAMPP for local development)  
+- **Version Control:** Git & GitHub  
 
 ---
 
 ## 📂 Project Structure
-
 ```
+
 surveyboard/
 │
 ├── sql/
-│   └── survey_webdev.sql         # Database schema & initial data
+│   └── survey\_webdev.sql         # Database schema & initial data
 │
 ├── public/
 │   ├── index.php                  # Landing page
 │   ├── register.php               # User registration page
 │   ├── login.php                  # User login page
-│   ├── dashboard.php              # Admin/user dashboard
-│   ├── create_survey.php          # Survey creation form
-│   ├── view_survey.php            # Public survey participation page
+│   ├── dashboard.php              # Dashboard with survey management tools
+│   ├── create\_survey.php          # Survey creation form
+│   ├── view\_survey.php            # Public survey participation page
 │   ├── results.php                # Graphical results (bar graph)
 │   └── assets/                    # CSS, JS, and image files
 │
 └── README.md                      # Project documentation
-```
+
+````
+
+---
 
 ## ⚙ Installation & Setup (Using XAMPP)
-
 1. **Install XAMPP**  
    Download and install [XAMPP](https://www.apachefriends.org/index.html).
 
@@ -81,60 +99,62 @@ surveyboard/
 
 4. **Move the Project to htdocs**
 
-Place the `surveyboard` folder inside:
+   ```
+   C:\xampp\htdocs\
+   ```
 
-```
-C:\xampp\htdocs\
-```
+5. **Import the Database**
 
- 5. **Import the Database**
+   * Open **phpMyAdmin**.
+   * Create a new database named `survey_webdev`.
+   * Import the file `survey_webdev.sql` from the `sql/` folder.
 
-  * Open **phpMyAdmin**.
-  * Import the file `survey_webdev.sql` from the `sql/` folder.
+6. **Bonus Tip**
+   If XAMPP's MySQL service stops unexpectedly:
 
- 6.**Bonus tip**
+   * Open **Services** in Windows.
+   * Search for `MySQL80` and stop it.
+   * Restart MySQL from XAMPP.
 
-  If xampp's sql sevices is stopping unexpectedly then search sevices on windows searchbar(on Windows 10/11) then search for MySQL80 and stop that servies then start your xampps's SQL service & BOOM you are good to Go...
-  
- 7. **Configure Database Connection**
+7. **Configure Database Connection**
+   Open `db.php` and update:
 
-  * Open `db.php` and set:
+   ```php
+   $host = "localhost";
+   $username = "root";
+   $password = ""; // Your MySQL password
+   $dbname = "survey_webdev";
+   ```
 
-<!-- end list -->
+8. **Run the Project**
 
-```php
-$host = "localhost";
-$username = "root";
-$password = ""; // Your MySQL password
-$dbname = "survey_webdev";
-```
- 8. **Run the Project**
+   ```
+   http://localhost/surveyboard/public/
+   ```
 
-  * Open your browser and go to:
+---
 
-<!-- end list -->
+## 📈 Future Scope
 
-```ruby
-http://localhost/surveyboard/public/
+* 🖌 **Customization of Forms** – Themes, fonts, and custom layouts.
+* 📂 **Export Survey Data** – Downloadable Excel/CSV survey results.
+* 🎨 **Further UI Enhancements** – Animations, smooth transitions, and advanced styling.
+* 👤 **Guest Name Option** – Optional/mandatory name field for guests.
+* ⚡ **ReactJS Version** – Single-page application for faster interaction.
+* ✨ **Minor UI Tweaks** – Alignment, spacing, and consistency improvements.
 
-```
-📈 Future Scope
+---
 
-* **🖌 Customization of Forms** – Allow more personalization like themes, fonts, and custom layouts for surveys.
-* **📂 Export Survey Data** – Generate downloadable Excel/CSV files containing survey results for offline analysis.
-* **🎨 Further UI Enhancements** – Add animations, smoother transitions, and advanced styles for a more modern look.
-* **👤 Guest Name Option for Records** –
-    * Let guest participants optionally enter their name for admin records.
-    * Admin can set this as mandatory or optional for each survey.
-* **⚡ ReactJS Version** – Develop a single-page application version for better speed and a more modern user experience.
-* **✨ Minor UI Tweaks** – Improve alignment, spacing, and consistency across all pages.
+## 🤝 Contributing
 
- 🤝 Contributing
 Contributions are welcome!
-If you have suggestions or improvements, please fork the repository and submit a pull request.
+Fork the repository, create a branch, and submit a pull request.
 
-💡 Author
-Sudhanwa Kulkarni
-* 📧 Email: [sudhanwalatur@gmail.com]
+---
+
+## 💡 Author
+
+**Sudhanwa Kulkarni**
+* 📧 Email: [sudhanwalatur@gmail.com](mailto:sudhanwalatur@gmail.com)
 * 🌐 GitHub: [sudhanwa755](https://github.com/sudhanwa755)
 
